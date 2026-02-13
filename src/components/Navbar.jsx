@@ -61,10 +61,10 @@ const ThemeToggle = () => {
 const NAV_ITEMS = [
   { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
+  // { name: "Experience", href: "#experience" },
   { name: "Services", href: "#services" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
 

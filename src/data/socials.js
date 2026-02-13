@@ -6,17 +6,17 @@ export const socials = [
   {
     name: "GitHub",
     icon: FaGithub, // React component
-    link: "https://github.com/anugrahsivadasan",
+    link: "https://github.com/Shamnazp",
   },
   {
     name: "LinkedIn",
     icon: FaLinkedin,
-    link: "https://www.linkedin.com/in/anugrah-sivadasan/",
+    link: "http://www.linkedin.com/in/shamnaz-p",
   },
  
   {
     name: "Email",
     icon: HiOutlineMail,
-    link: "https://mail.google.com/mail/?view=cm&fs=1&to=anugrahsivadasan@gmail.com",
+    link: "https://mail.google.com/mail/?view=cm&fs=1&to=Shamnaza05@gmail.com",
   },
 ];

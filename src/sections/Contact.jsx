@@ -98,7 +98,7 @@ const Contact = () => {
           {/* CTA Buttons */}
           <div className="flex justify-center gap-6 mb-10 flex-wrap">
             <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=anugrahsivadasan@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=Shamnaza05@gmail.com"
               className="px-8 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 text-white"
               style={{ backgroundColor: primary }}
             >
@@ -106,7 +106,7 @@ const Contact = () => {
             </a>
 
             <a
-              href="/Anugrah-Sivadasan-React-Resume.pdf"
+              href="/Shamnas_P.pdf"
               download
               className="
                 px-8 py-3 rounded-full font-medium transition-all duration-300

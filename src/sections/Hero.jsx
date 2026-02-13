@@ -103,7 +103,7 @@ const Hero = () => {
           </a>
 
           <a
-            href="/Shamnas-Flutter-Resume.pdf"
+            href="/Shamnas_P.pdf"
             className="
               w-full sm:w-auto
               px-8 py-3 
