@@ -1,4 +1,3 @@
-import hii from "../assets/Anugrah.jpeg"
 import pallete from "../assets/colorify.png"
 import parallax from "../assets/parallax.png"
 import play from "../assets/playstore.png"

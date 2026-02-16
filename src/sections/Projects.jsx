@@ -1,91 +1,146 @@
 import { projects } from "../data/projects";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const Projects = () => {
   const { primary } = useTheme();
+
   const sectionRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start end", "end start"],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-  });
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    return smoothProgress.on("change", (value) => {
-      const index = Math.min(
-        projects.length - 1,
-        Math.floor(value * projects.length)
-      );
-      setActiveIndex(index);
-    });
-  }, [smoothProgress]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2, 1], [0, 1, 0]);
 
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="relative bg-white dark:bg-black"
-      style={{ height: `${projects.length * 100}vh` }}
+      className="relative min-h-screen bg-white dark:bg-black py-32 px-6 overflow-hidden"
     >
-      {/* Sticky Wrapper */}
-      <div className="sticky top-0 h-screen flex items-center justify-center px-6 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute inset-0 pointer-events-none">
 
-        <motion.div
-          key={activeIndex}
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="w-full max-w-6xl"
-        >
-          <div className="bg-white dark:bg-neutral-900 rounded-3xl overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.6)] border border-white/10">
-            
-            {/* Image */}
-            <div className="h-[60vh] overflow-hidden">
-              <img
-                src={projects[activeIndex].image}
-                alt={projects[activeIndex].name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+        <div
+          className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] blur-[140px] opacity-30 rounded-full"
+          style={{ background: primary }}
+        />
 
-            {/* Content */}
-            <div className="p-10 text-center">
-              <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-                {projects[activeIndex].name}
-              </h2>
-
-              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-                {projects[activeIndex].description}
-              </p>
-
-              <a
-                href={projects[activeIndex].link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 py-3 rounded-full font-medium transition duration-300 hover:scale-105"
-                style={{ backgroundColor: primary, color: "#fff" }}
-              >
-                View Project →
-              </a>
-            </div>
-
-          </div>
-        </motion.div>
+        <div
+          className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] blur-[140px] opacity-30 rounded-full"
+          style={{ background: primary }}
+        />
 
       </div>
+
+      {/* Heading */}
+      <motion.div
+        style={{ y: headingY, opacity: headingOpacity }}
+        className="text-center mb-20 relative z-10"
+      >
+        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          My Projects
+        </h1>
+
+        <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          A collection of modern web applications built with clean UI,
+          animation, and performance-focused architecture.
+        </p>
+      </motion.div>
+
+      {/* Projects Grid */}
+      <div className="relative z-10 max-w-7xl mx-auto grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 80, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.1,
+            }}
+            viewport={{ once: true }}
+            className="group"
+          >
+            {/* Glass Card */}
+            <div className="relative rounded-3xl overflow-hidden">
+
+              {/* Glass Background */}
+              <div className="absolute inset-0 bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.4)]" />
+
+              {/* Hover Glow */}
+              <div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition duration-500"
+                style={{
+                  background: `linear-gradient(135deg, ${primary}, transparent)`,
+                }}
+              />
+
+              {/* Content */}
+              <div className="relative flex flex-col h-full">
+
+                {/* Image */}
+                <div className="h-[240px] overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                  />
+                </div>
+
+                {/* Text */}
+                <div className="p-6 flex flex-col flex-grow">
+
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                    {project.name}
+                  </h2>
+
+                  <p className="text-gray-600 dark:text-gray-400 text-sm flex-grow">
+                    {project.description}
+                  </p>
+
+                  {/* Tech */}
+                  <div className="flex flex-wrap gap-2 mt-4 mb-6">
+                    {project.tech.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="text-xs px-3 py-1 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border dark:text-gray-200 border-white/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Button */}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto py-3 text-center rounded-xl font-medium text-white transition duration-300 hover:scale-105"
+                    style={{
+                      background: `linear-gradient(135deg, ${primary}, ${primary}cc)`,
+                    }}
+                  >
+                    View Project
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+          </motion.div>
+        ))}
+
+      </div>
+
     </section>
   );
 };
 
 export default Projects;
- 

@@ -13,6 +13,8 @@ import ScrollProgress from "./components/ScrollProgress";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import FeaturesSection from "./sections/Features";
 
+import MouseGlow from "./components/MouseGlow";
+
 /* ------------------ VARIANTS ------------------ */
 
 const sectionVariants = {
@@ -33,6 +35,7 @@ const sectionVariants = {
 const App = () => {
   return (
     <>
+      <MouseGlow />
             <ThemeSwitcher /> {/* floating button slides from hero left → navbar top-left */}
       <Navbar />
 

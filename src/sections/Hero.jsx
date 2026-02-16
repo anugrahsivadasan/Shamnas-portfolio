@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="
+      className=" relative z-10
         min-h-screen relative 
         flex flex-col items-center 
         justify-start sm:justify-center

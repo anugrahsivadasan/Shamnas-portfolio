@@ -27,7 +27,7 @@ useEffect(() => {
 
     typed += e.key.toLowerCase();
 
-    // Keep only last 4 characters
+    // Keep only last 6 characters
     typed = typed.slice(-6);
 
     if (typed === "shammu") {
