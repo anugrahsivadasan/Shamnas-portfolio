@@ -9,11 +9,10 @@ const Hero = () => {
     <section
       id="hero"
       className=" relative z-10
-        min-h-screen relative 
+        min-h-screen  
         flex flex-col items-center 
-        justify-start sm:justify-center
         text-center 
-        pt-28 sm:pt-0
+       justify-center pt-20 sm:pt-24
         px-5 sm:px-6 
         overflow-hidden
         bg-white text-gray-900 
